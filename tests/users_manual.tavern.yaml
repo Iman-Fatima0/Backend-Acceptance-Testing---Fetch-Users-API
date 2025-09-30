@@ -1,0 +1,67 @@
+# test_name: "Manual tests for GET /api/users"
+# stages:
+#   - name: "Valid token should return users"
+#     request:
+#       url: "/api/users"
+#       method: GET
+#       headers:
+#         Authorization: "Bearer {auth_token}"
+#     response:
+#       status_code: 200
+#       json:
+#         - id: 1
+#           username: "john"
+#           email: "john@example.com"
+#         - id: 2
+#           username: "alice"
+#           email: "alice@example.com"
+
+#   - name: "Missing token should fail"
+#     request:
+#       url: "{base_url}/api/users"
+#       method: GET
+#     response:
+#       status_code: 401
+
+#   - name: "Invalid token should fail"
+#     request:
+#       url: "{base_url}/api/users"
+#       method: GET
+#       headers:
+#         Authorization: "Bearer wrong_token"
+#     response:
+#       status_code: 401
+test_name: "Manual tests for GET /api/users"
+
+stages:
+  - name: "Valid token should return users"
+    request:
+      url: "http://localhost:3000/api/users"
+      method: GET
+      headers:
+        Authorization: "Bearer secret_token"
+    response:
+      status_code: 200
+      json:
+        - id: 1
+          username: "john"
+          email: "john@example.com"
+        - id: 2
+          username: "alice"
+          email: "alice@example.com"
+
+  - name: "Missing token should fail"
+    request:
+      url: "http://localhost:3000/api/users"
+      method: GET
+    response:
+      status_code: 401
+
+  - name: "Invalid token should fail"
+    request:
+      url: "http://localhost:3000/api/users"
+      method: GET
+      headers:
+        Authorization: "Bearer wrong_token"
+    response:
+      status_code: 401
